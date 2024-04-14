@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.gradient-background {
+    background-image: linear-gradient(to right, #A1C4FD , #C2E9FB);
+    background-size: cover;
+    min-height: 100vh; 
+  }
