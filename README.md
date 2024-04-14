@@ -13,5 +13,5 @@ This project uses both [Mixtral 7b Moodel](https://mistral.ai/news/mixtral-of-ex
 - Add Cloudflare API token and Cloudflare account ID in a `.env` file
 - Run the application on local `npm run dev`
 
-### Repo cloned from [twitterbio.io](https://www.twitterbio.io/)
+### Repo cloned from [twitterbio](https://github.com/Nutlope/twitterbio)
 
