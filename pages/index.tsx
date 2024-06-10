@@ -9,13 +9,12 @@ import Header from "../components/Header";
 import LoadingDots from "../components/LoadingDots";
 import Toggle from "../components/Toggle";
 
-
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [vibe, setVibe] = useState<VibeType>("Professional");
   const [generatedBios, setGeneratedBios] = useState<string>("");
-  const [platform, setPlatform] = useState('Twitter');
+  const [platform, setPlatform] = useState("Twitter");
 
   const bioRef = useRef<null | HTMLDivElement>(null);
 
@@ -33,7 +32,7 @@ const Home: NextPage = () => {
     bio.slice(-1) === "." ? "" : "."
   }`;
 
-  
+  // frontend/pages/index.ts
   const generateBio = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setGeneratedBios("");
@@ -44,7 +43,7 @@ const Home: NextPage = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt }),
     }).catch((error) => {
-      console.error("Error generating bio:", error);
+      console.error("Error generating bio at Index File:", error);
       setLoading(false);
     });
 
@@ -52,12 +51,37 @@ const Home: NextPage = () => {
       const { bio } = await response.json();
       setGeneratedBios(String(bio));
     } else {
-      console.error("Error status:", response?.status);
+      console.error("Error status at Index File:", response?.status);
     }
 
     setLoading(false);
     scrollToBios();
   };
+
+  // const generateBio = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setGeneratedBios("");
+  //   setLoading(true);
+
+  //   const response = await fetch("/api/mistral", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ prompt }),
+  //   }).catch((error) => {
+  //     console.error("Error generating bio:", error);
+  //     setLoading(false);
+  //   });
+
+  //   if (response && response.ok) {
+  //     const { bio } = await response.json();
+  //     setGeneratedBios(String(bio));
+  //   } else {
+  //     console.error("Error status:", response?.status);
+  //   }
+
+  //   setLoading(false);
+  //   scrollToBios();
+  // };
 
   return (
     <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
@@ -69,19 +93,12 @@ const Home: NextPage = () => {
       <Header />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
         <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900 ">
-          Generate your next{" "}
-          <a className="text-[#1DA1F2]">
-            Twitter
-          </a>{" "}
-          or{" "}
-          <a className="text-[#0077B5]">
-            Linkedin
-          </a>{" "}
-          bio using AI
+          Generate your next <a className="text-[#1DA1F2]">Twitter</a> or{" "}
+          <a className="text-[#0077B5]">Linkedin</a> bio using AI
         </h1>
 
         <div className="mt-7">
-        <Toggle platform={platform} setPlatform={setPlatform} />
+          <Toggle platform={platform} setPlatform={setPlatform} />
         </div>
 
         <div className="max-w-xl w-full">
