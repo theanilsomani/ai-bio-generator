@@ -20,6 +20,6 @@ export default async (req: any, res: any) => {
     res.status(response.status).json(data);
   } catch (error) {
     console.error('Error forwarding request at JS Route File:', error);
-    res.status(500).json({ message: 'Error forwarding request at JS Route File', error: error.message });
+    res.status(500).json({ message: 'Error forwarding request at JS Route File', error: (error as any).message });
   }
 };
