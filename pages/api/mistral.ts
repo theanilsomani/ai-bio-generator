@@ -1,25 +1,26 @@
 // frontend/pages/api/mistral.ts
-export default async (req: any, res: any) => {
-  const url = 'https://ai-bio-gen-backend.vercel.app/handler'; // Flask backend URL
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const url = 'https://ai-bio-gen-backend.onrender.com/handler';
 
   try {
     const response = await fetch(url, {
       method: req.method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(req.body), // Make sure to stringify the body
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
     });
 
-    // Check if the response from Flask was not OK (i.e., status code outside of 200-299)
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return res.status(response.status).json({ message: 'Error forwarding request' });
     }
 
     const data = await response.json();
-    res.status(response.status).json(data);
-  } catch (error) {
-    console.error('Error forwarding request at JS Route File:', error);
-    res.status(500).json({ message: 'Error forwarding request at JS Route File', error: (error as any).message });
+    res.status(200).json(data);
+  } catch (error: any) {
+    console.error('Error at JS Route File:', error.message);
+    res.status(500).json({ message: 'Error at JS Route File', error: error.message });
   }
 };
+
+export default handler;
