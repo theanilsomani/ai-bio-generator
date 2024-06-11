@@ -1,5 +1,6 @@
-// frontend/pages/api/mistral.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
+
+export const runtime = "edge";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const url = 'https://ai-bio-gen-backend.onrender.com/handler';
